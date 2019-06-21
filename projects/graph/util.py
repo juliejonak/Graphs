@@ -1,6 +1,8 @@
 class Queue():
     def __init__(self):
         self.queue = []
+    def __repr__(self):
+        return f"{self.queue}"
     def enqueue(self, value):
         self.queue.append(value)
     def dequeue(self):
