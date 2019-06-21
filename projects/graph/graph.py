@@ -7,11 +7,13 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
+
     def add_vertex(self, vertex):
         """
         Add a vertex to the graph.
         """
         self.vertices[vertex] = set()
+
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
@@ -20,6 +22,7 @@ class Graph:
             self.vertices[v1].add(v2)
         else:
             raise IndexError("That vertex does not exist!")
+
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
@@ -38,10 +41,12 @@ class Graph:
             if v not in visited:
                 # Mark it as visited
                 visited.add(v)
-                print(v)
                 # Then add all of its neighbors to the back of the queue
+                # given graph = { 1: {2}, 4: {6,7} }
+                # if vertex was 4, self.vertices[4] would be {6,7}
                 for neighbor in self.vertices[v]:
                     q.enqueue(neighbor)
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -60,10 +65,10 @@ class Graph:
             if v not in visited:
                 # Mark it as visited
                 visited.add(v)
-                print(v)
                 # Then add all of its neighbors to the top of the Stack
                 for neighbor in self.vertices[v]:
                     s.push(neighbor)
+
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -86,8 +91,14 @@ class Graph:
         """
         pass  # TODO
 
-
-
+graph = Graph()  # Instantiate your graph
+graph.add_vertex('0')
+graph.add_vertex('1')
+graph.add_vertex('2')
+graph.add_vertex('3')
+graph.add_edge('0', '1')
+graph.add_edge('0', '3')
+print(graph.vertices)
 
 
 if __name__ == '__main__':
