@@ -59,10 +59,14 @@ class SocialGraph:
                 possibleFriendships.append((userID, friendID))
         
         random.shuffle(possibleFriendships)
-
+        
+        addFriendshipCounter = 0
         for i in range(0, math.floor((numUsers * avgFriendships) // 2)):
             friendship = possibleFriendships[i]
             self.addFriendship(friendship[0], friendship[1])
+            addFriendshipCounter += 1
+        
+        print(f"Time addFriendship was called: {addFriendshipCounter}.")
 
     def getAllSocialPaths(self, userID):
         """
@@ -79,6 +83,7 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populateGraph(10, 2)
+    # sg.populateGraph(100, 10)
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
