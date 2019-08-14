@@ -73,13 +73,13 @@ class SocialGraph:
         
         random.shuffle(possibleFriendships)
         
-        addFriendshipCounter = 0
+        debug_addFriendshipCounter = 0
         for i in range(0, math.floor((numUsers * avgFriendships) // 2)):
             friendship = possibleFriendships[i]
             self.addFriendship(friendship[0], friendship[1])
-            addFriendshipCounter += 1
+            debug_addFriendshipCounter += 1
         
-        print(f"Time addFriendship was called: {addFriendshipCounter}.")
+        print(f"Time addFriendship was called: {debug_addFriendshipCounter}.")
 
     def getAllSocialPaths(self, userID):
         """
@@ -101,15 +101,16 @@ class SocialGraph:
                 visited[friend] = path
 
                 for second_friend in self.friendships[friend]:
-                    path_copy = list(path)
-                    path_copy.append(second_friend)
-                    q.enqueue(path_copy)
+                    if second_friend not in visited:
+                        path_copy = list(path)
+                        path_copy.append(second_friend)
+                        q.enqueue(path_copy)
 
-        friendship = 0
+        debug_friendship = 0
         for key in visited:
-            friendship += len(visited[key])
+            debug_friendship += len(visited[key])
         
-        return f"Average degree of separation: {friendship // len(visited)}"
+        return f"Average degree of separation: {debug_friendship - 1} // {len(visited)} = {(debug_friendship - 1) // len(visited)}. Number in extended network: {len(visited)}"
 
 if __name__ == '__main__':
     sg = SocialGraph()
